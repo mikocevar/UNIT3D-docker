@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  httpd:
+    container_name: united-httpd
+    build: ./ubuntu-apache    
+    ports:
+      - 80:80
+    volumes:
+      - "./www:/var/www/html:rw"
+
+  php-fpm:
+    container_name: united-php-fpm
+    build: ./php-fpm
+    volumes:
+      - "./www:/var/www/html:rw"
+
+  node:
+    container_name: united-node
+    build: ./node
+    ports:
+      - 8443:8443
+    volumes:
+      - "./www:/var/www/html:rw"
+
+  supervisor:
+    container_name: united-supervisor
+    build: ./supervisor
+    tty: true
+    volumes:
+      - "./www:/var/www/html:rw"  
+
+  mariadb:
+    container_name: united-mariadb
+    image: mariadb:10.5.2
+    volumes:
+      - mariadb-volume:/var/lib/mysql
+    environment:
+      TZ: "Europe/Rome"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+      MYSQL_ROOT_PASSWORD: "rootpwd"
+      MYSQL_USER: 'testuser'
+      MYSQL_PASSWORD: 'testpassword'
+      MYSQL_DATABASE: 'testdb'
+
+  phpmyadmin:
+    container_name: united-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    links:
+      - 'mariadb:db'
+    ports:
+      - 8081:80
+
+  redis:
+    container_name: united-redis
+    image: "redis:alpine"
+
+volumes:
+  mariadb-volume:
