@@ -18,7 +18,6 @@ RUN a2enmod rewrite
 RUN a2enmod expires
 
 ADD ./000-default.conf /etc/apache2/sites-enabled/000-default.conf
-ADD ./unit3d.conf /etc/supervisor/conf.d/unit3d.conf
 
 RUN a2enmod actions proxy_fcgi
 

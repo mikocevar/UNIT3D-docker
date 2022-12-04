@@ -32,7 +32,7 @@ services:
 
   mariadb:
     container_name: united-mariadb
-    image: mariadb:10.5.2
+    build: ./mariadb
     volumes:
       - mariadb-volume:/var/lib/mysql
     environment:
@@ -45,7 +45,7 @@ services:
 
   phpmyadmin:
     container_name: united-phpmyadmin
-    image: phpmyadmin/phpmyadmin
+    build: ./phpmyadmin
     links:
       - 'mariadb:db'
     ports:
@@ -53,7 +53,7 @@ services:
 
   redis:
     container_name: united-redis
-    image: "redis:alpine"
+    build: ./redis
 
 volumes:
   mariadb-volume:
