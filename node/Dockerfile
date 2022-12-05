@@ -2,7 +2,7 @@ FROM node:16
 
 RUN npm install -g laravel-echo-server
 
-WORKDIR /app
+WORKDIR /var/www/html
 
 COPY laravel-echo-server.json .
 
