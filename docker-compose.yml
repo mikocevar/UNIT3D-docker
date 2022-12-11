@@ -22,6 +22,11 @@ services:
       - 8443:8443
     volumes:
       - "./www:/var/www/html:rw"
+    depends_on:
+      - php-fpm
+      - mariadb
+      - httpd
+      - redis
 
   supervisor:
     container_name: united-supervisor
