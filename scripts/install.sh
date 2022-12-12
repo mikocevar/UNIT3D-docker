@@ -3,7 +3,7 @@ cp unit3d/.env www
 
 docker compose stop
 docker container rm $(docker container ps -aq)
-docker compose build
+docker compose --project-name united build
 
 docker run --rm -d -v $(pwd)/www:/var/www/html --name united-php-fpm united-php-fpm
 docker exec united-php-fpm composer install
